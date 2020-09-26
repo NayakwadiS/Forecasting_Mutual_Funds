@@ -30,11 +30,11 @@ Steps to Execute
 1. Direct to cloned repository path in CMD or Terminal
 2. Run main.py 
 ```shell
-  D:\Forecasting_Mutual_Funds> python main.py
+  >>D:\Forecasting_Mutual_Funds> python main.py
 ```
 3. Enter Mutual Fund Scheme code you want to Forecast
 ```shell
-  Enter the MF Scheme code:- MF code
+  >>Enter the MF Scheme code:- MF code
 ```
 4. Wait a minute to get the result as 
 
