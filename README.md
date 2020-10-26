@@ -1,7 +1,7 @@
 Forecasting_Mutual_Funds
 =====================
 
-This Study Project gives you an overall idea for Forecasting Mutual Funds
+This Project gives you an overall idea for Forecasting Mutual Funds
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
@@ -11,7 +11,7 @@ This Study Project gives you an overall idea for Forecasting Mutual Funds
 Introduction
 ============
 
-* This project performs forecasting by using different Time Series algorithms.
+* Project performs forecasting by using different Time Series algorithms.
 * This gives you an overall idea about how each algorithm forecast same mutual fund.
 * Performs Next 30 days forecasting.
   
