@@ -45,7 +45,7 @@ Steps to Execute
 
 Disclaimer
 ================
-This is study project which gives an idea about MF forecasting and should not be considered as investment advice.
+This project gives an idea about MF forecasting and should not be considered as investment advice.
 
 
 To Do
