@@ -1,0 +1,49 @@
+
+<html>
+<!doctype html>
+<title>Forecasting MF</title>
+<head>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/stayles.css') }}">
+</head>
+<header>
+<div class="header">
+  <a class="logo">Forecasting Mutual Funds</a>
+  <div class="header-right">
+    <a href="/">Home</a>
+    <a href="https://github.com/NayakwadiS">Contact</a>
+    <a href="https://github.com/NayakwadiS/Forecasting_Mutual_Funds">About</a>
+  </div>
+</div>
+</header>
+<body>
+<div class="row center">
+  <div class="column hidden">
+  </div>
+</div>
+<div class="center">
+  <form class="form-inline" method="POST" action="/">
+    <label class="label">Scheme Code:</label>
+    <input id="scheme" placeholder="Enter Scheme code" name="scheme" class="label">
+    <select name="type" id="type" class="label">
+      <option value="Linear">Linear</option>
+      <option value="Auto Regression">Auto Regression</option>
+      <option value="ARIMA">ARIMA</option>
+      <option value="LSTM">LSTM</option>
+    </select>
+    <button type="button" onclick="show_plot()">Submit</button>
+      <label id ='error' style="color:red"> Scheme code is NOT correct.</label>
+  </form>
+</div>
+<div class="loader" id="loader"></div>
+<div id="data">
+</div>
+
+</body>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script type="text/javascript">
+  window.onload = function() {
+   document.getElementById("loader").style.display = "none"
+   document.getElementById("error").style.display = "none"
+   };
+</script>
+</html>

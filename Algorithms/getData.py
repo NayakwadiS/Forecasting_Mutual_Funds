@@ -12,3 +12,13 @@ def getDataFrame(scheme_code):
             # return details, df
         return decorated
     return decorate
+
+
+def data_frame(func):
+    def decorated(*args,**kwargs):
+        m = Mftool()
+        details = m.get_scheme_details(*args)
+        data = m.get_scheme_historical_nav(*args)['data']
+        df = pd.DataFrame(data[::-1])
+        return func(df,details)
+    return decorated

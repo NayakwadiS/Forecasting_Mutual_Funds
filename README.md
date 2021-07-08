@@ -10,7 +10,6 @@ This Project gives you an overall idea for Forecasting Mutual Funds in India.
 
 Introduction
 ============
-
 * Project performs forecasting by using different Time Series algorithms.
 * This gives you an overall idea about how each algorithm forecast same mutual fund.
 * Performs Next 30 days forecasting.
@@ -26,7 +25,7 @@ Pre-Requisite
 Project required Mutual fund scheme code, *[here](https://raw.githubusercontent.com/NayakwadiS/mftool/master/Scheme_codes.txt)* you can get those. 
 
 
-Steps to Execute
+Steps to Run from Terminal
 =================
 1. Direct to cloned repository path in CMD or Terminal
 2. Run main.py 
@@ -43,6 +42,15 @@ Steps to Execute
 <img src="./images/forecasting_plot.jpg" >
 
 
+Steps to Run as Web App
+=================
+1. Direct to cloned repository path and Run app.py
+2. Navigate to http://localhost:5000/
+3. Enter Mutual Fund Scheme code you want to Forecast
+
+<img src="./images/web_app.jpg" >
+
+
 Disclaimer
 ================
 This project gives an idea about MF forecasting and should not be considered as investment advice.
@@ -50,6 +58,6 @@ This project gives an idea about MF forecasting and should not be considered as 
 
 To Do
 ================
-Creation of Webapp 
+Creation of Advance Webapp 
 
 

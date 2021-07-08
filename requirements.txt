@@ -2,7 +2,7 @@ tabulate==0.8.7
 pandas==1.1.1
 numpy==1.19.1
 matplotlib==3.3.1
-mftool==1.6
+mftool==2.1
 scikit-learn==0.23.2
 statsmodels==0.12.0
 tensorflow==2.5.0

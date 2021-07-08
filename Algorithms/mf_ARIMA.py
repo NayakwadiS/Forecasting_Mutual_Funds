@@ -1,4 +1,9 @@
 from Algorithms import *
+import warnings
+warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARMA',
+                        FutureWarning)
+warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARIMA',
+                        FutureWarning)
 
 def arima(df):
     days = 30
