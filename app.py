@@ -1,23 +1,22 @@
-import json
-from Algorithms.getData import data_frame
 from flask import Flask, render_template, request, jsonify
+from werkzeug.exceptions import HTTPException
 from io import BytesIO
 import base64
 from Algorithms import *
 import matplotlib.pyplot as plt
 import matplotlib as plot
 import warnings
+import json
 
-warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARMA',FutureWarning)
-warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARIMA',FutureWarning)
-
+warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARMA', FutureWarning)
+warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARIMA', FutureWarning)
 
 app = Flask(__name__)
 plot.use('Agg')
 m = Mftool()
 
 
-@data_frame
+@getData.data_frame
 def main(df, details):
     df_new = df['nav'].iloc[-100:].astype(float)
     Y = [np.nan for i in range(len(df_new))]
@@ -31,7 +30,7 @@ def get_plot(Y, pred):
     img = BytesIO()
     plt.figure(figsize=(12, 5))
     plt.style.use('seaborn-notebook')
-    plt.plot(np.append(Y, pred), color='blue',label="Prediction")
+    plt.plot(np.append(Y, pred), color='blue', label="Prediction")
     plt.xlabel('Next 30 Days')
     plt.ylabel('NAV')
     plt.legend()
@@ -40,7 +39,7 @@ def get_plot(Y, pred):
     return base64.b64encode(img.getvalue()).decode('utf8')
 
 
-def get_trend(Y,pred,type):
+def get_trend(Y, pred, type):
     img = BytesIO()
     plt.figure(figsize=(12, 5))
     plt.style.use('seaborn-notebook')
@@ -64,17 +63,27 @@ def index():
             Y, df = main(req['scheme'])
 
             def switch(x):
-                return {'Linear': linear,'Auto Regression': AutoR,
-                    'ARIMA': arima,'LSTM': lstm}[x]                 # return switcher.get(x,linear)
-
-            function = switch(req['type'])
-            pred, asd = function(df)
-            plot = get_trend(Y,pred,req['type'])
-            trend = get_plot(Y, pred)
-            return jsonify({'trend': trend, 'plot': plot})
-        return '', 404
+                return {'Linear': linear, 'Auto Regression': AutoR,
+                        'ARIMA': arima, 'LSTM': lstm}[x]  # return switcher.get(x,linear)
+            try:
+                call = switch(req['type'])
+                pred, asd = call(df)
+                plot = get_trend(Y, pred, req['type'])
+                trend = get_plot(Y, pred)
+                return jsonify({'trend': trend, 'plot': plot})
+            except Exception as e:
+                raise 500
+        raise 404
     else:
         return render_template('plot.html')
+
+
+@app.errorhandler(Exception)
+def internal_error(error):
+    code = 500
+    if isinstance(error, HTTPException):
+        code = error.code
+    return '',code
 
 
 app.run(port=5000, debug=False)
