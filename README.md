@@ -1,7 +1,7 @@
 Forecasting_Mutual_Funds
 =====================
 
-This Project gives you an overall idea for Forecasting Mutual Funds in India.
+This Project gives you an overall idea for Forecasting Mutual Funds.
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
@@ -46,7 +46,7 @@ Steps to Run as Web App
 =================
 1. Direct to cloned repository path and Run app.py
 2. Navigate to http://localhost:5000/
-3. Enter Mutual Fund Scheme code you want to Forecast
+3. Enter Scheme code, select Algorithm and click Submit
 
 <img src="./images/web_app.jpg" >
 
