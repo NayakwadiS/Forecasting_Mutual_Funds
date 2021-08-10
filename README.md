@@ -46,7 +46,7 @@ Steps to Run as Web App
 =================
 1. Direct to cloned repository path and Run app.py
 2. Navigate to http://localhost:5000/
-3. Enter Scheme code, select Algorithm and click Submit
+3. Enter Scheme code, select Algorithm and click View
 
 <img src="./images/web_app.jpg" >
 
