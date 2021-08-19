@@ -1,4 +1,4 @@
-Forecasting_Mutual_Funds
+Forecasting Mutual Funds
 =====================
 
 This Project gives you an overall idea for Forecasting Mutual Funds.
