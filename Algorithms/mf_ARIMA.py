@@ -19,7 +19,7 @@ def arima(df):
     prediction = list()
     for t in range(len(test)):
         model = ARIMA(history, order=(5, 1, 0))
-        model_fit = model.fit(disp=0)
+        model_fit = model.fit()
         output = model_fit.forecast()
         yhat = output[0]
         prediction.append(yhat)
@@ -34,12 +34,12 @@ def arima(df):
     forecasting = []
     for i in range(days):
         model = ARIMA(history, order=(5, 1, 0))
-        model_fit = model.fit(disp=0)
+        model_fit = model.fit()
         output = model_fit.forecast()
         yhat = output[0]
         forecasting.append(yhat)    #future day
         history.append(yhat)
-    # print(forecasting)
+    print("ARIMA",forecasting)
 
     # plot
     # pyplot.plot(Y[-30:])                      # last 30 days
