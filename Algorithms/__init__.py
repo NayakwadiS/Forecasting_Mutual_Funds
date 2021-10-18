@@ -8,7 +8,8 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 from statsmodels.graphics.tsaplots import plot_pacf
 from statsmodels.tsa.ar_model import AutoReg, AR
-from statsmodels.tsa.arima_model import ARIMA
+# from statsmodels.tsa.arima_model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 from pandas.plotting import autocorrelation_plot,lag_plot
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
