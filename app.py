@@ -59,21 +59,21 @@ def index():
     if request.method == 'POST':
         req = request.data
         req = json.loads(req.decode('utf8').replace("'", '"'))
-        if m.is_valid_code(req['scheme']):
-            Y, df = main(req['scheme'])
+        # if m.is_valid_code(req['scheme']):
+        Y, df = main(req['scheme'])
 
-            def switch(x):
-                return {'Linear': linear, 'Auto Regression': AutoR,
-                        'ARIMA': arima, 'LSTM': lstm}[x]  # return switcher.get(x,linear)
-            try:
-                call = switch(req['type'])
-                pred, asd = call(df)
-                plot = get_trend(Y, pred, req['type'])
-                trend = get_plot(Y, pred)
-                return jsonify({'trend': trend, 'plot': plot})
-            except Exception as e:
+        def switch(x):
+            return {'Linear': linear, 'Auto Regression': AutoR,
+                    'ARIMA': arima, 'LSTM': lstm}[x]  # return switcher.get(x,linear)
+        try:
+            call = switch(req['type'])
+            pred, asd = call(df)
+            plot = get_trend(Y, pred, req['type'])
+            trend = get_plot(Y, pred)
+            return jsonify({'trend': trend, 'plot': plot})
+        except Exception as e:
                 raise 500
-        raise 404
+    #     raise 404
     else:
         return render_template('plot.html')
 
