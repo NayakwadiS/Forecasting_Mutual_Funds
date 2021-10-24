@@ -18,6 +18,7 @@ from sklearn.preprocessing import MinMaxScaler
 import datetime as dt
 from datetime import date
 from datetime import timedelta
+import yfinance as yf
 
 from Algorithms.getData import getDataFrame
 from Algorithms.mf_MovingAvg import SMA
