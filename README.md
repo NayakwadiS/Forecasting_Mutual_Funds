@@ -48,7 +48,7 @@ Steps to Run as Web App
 2. Navigate to http://localhost:5000/
 3. Enter Scheme code, select Algorithm and click View
 
-<img src="./images/web_app.png" >
+<img src="./images/web_app1.png" >
 
 
 Disclaimer
