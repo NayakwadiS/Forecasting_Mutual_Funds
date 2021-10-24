@@ -22,7 +22,7 @@ Clone this repository and install the requirements.
 
 Pre-Requisite
 ==============
-Project required Mutual fund scheme code, *[here](https://raw.githubusercontent.com/NayakwadiS/mftool/master/Scheme_codes.txt)* you can get those. 
+Project required Mutual fund scheme code, *[here](https://github.com/NayakwadiS/Forecasting_Mutual_Funds/blob/master/codes.json)* you can get those. 
 
 
 Steps to Run from Terminal
