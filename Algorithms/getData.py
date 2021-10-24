@@ -4,21 +4,27 @@ from Algorithms import *
 def getDataFrame(scheme_code):
     def decorate(func):
         def decorated(*args,**kwargs):
-            m = Mftool()
-            details = m.get_scheme_details(scheme_code)
-            data = m.get_scheme_historical_nav(scheme_code)['data']
-            df = pd.DataFrame(data[::-1])  # To reverse data before creating df
+            df = yf.download(str(scheme_code)+".BO",period='max')
+            df = df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'])
+            df = df.rename(columns={'Close': 'nav'})
+            df.reset_index(inplace=True)
+            df['date'] = df['Date'].dt.strftime('%Y-%m-%d')
+
+            info = yf.Ticker(str(scheme_code)+".BO").get_info()
+            details = {'scheme_name': info['longName'], 'scheme_code': str(scheme_code)}
             return func(df,details)
-            # return details, df
         return decorated
     return decorate
 
 
 def data_frame(func):
     def decorated(*args,**kwargs):
-        m = Mftool()
-        details = m.get_scheme_details(*args)
-        data = m.get_scheme_historical_nav(*args)['data']
-        df = pd.DataFrame(data[::-1])
+        df = yf.download(str(*args) + ".BO", period='max')
+        df = df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'])
+        df = df.rename(columns={'Close': 'nav'})
+        df.reset_index(inplace=True)
+        df['date'] = df['Date'].dt.strftime('%Y-%m-%d')
+        info = yf.Ticker(str(*args) + ".BO").get_info()
+        details = {'scheme_name': info['longName'], 'scheme_code': str(*args)}
         return func(df,details)
     return decorated
