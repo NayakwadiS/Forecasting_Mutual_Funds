@@ -38,7 +38,7 @@ Steps to Run from Terminal
 ```
 4. Wait a minute to get the result as 
 
-<img src="./images/forecasting_cmd.JPG" >
+<img src="./images/forecasting_cmdl.JPG" >
 <img src="./images/forecasting_plot.JPG" >
 
 
