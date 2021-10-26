@@ -56,8 +56,8 @@ Disclaimer
 This project gives an idea about MF forecasting and should not be considered as investment advice.
 
 
-To Do
+Crypto Prediction
 ================
-Creation of Advance Webapp 
+Prediction of Cryptocurrencies in Indian Rupees *[here](https://github.com/NayakwadiS/Predict_Cryptocurrency_INR)*
 
 
