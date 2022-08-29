@@ -19,6 +19,7 @@ import datetime as dt
 from datetime import date
 from datetime import timedelta
 import yfinance as yf
+import seaborn as sns
 
 from Algorithms.getData import getDataFrame
 from Algorithms.mf_MovingAvg import SMA
