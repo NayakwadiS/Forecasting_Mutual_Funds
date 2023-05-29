@@ -1,4 +1,4 @@
-<img src="/logo.png"  height="150">
+<img src="./images/logo.png"  height="110">
 
 Forecasting Mutual Funds
 =====================
