@@ -1,5 +1,4 @@
-Forecasting Mutual Funds
-=====================
+<img src="./images/logo.png"  height="70">
 
 This Project gives you an overall idea for Forecasting Mutual Funds.
 
