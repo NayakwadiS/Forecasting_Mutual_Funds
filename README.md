@@ -1,8 +1,5 @@
 <img src="./images/logo.png"  height="110">
 
-Forecasting Mutual Funds
-=====================
-
 This Project gives you an overall idea for Forecasting Mutual Funds.
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
