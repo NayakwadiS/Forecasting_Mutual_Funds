@@ -1,4 +1,4 @@
-<img src="./images/logo.png"  height="110">
+<img src="./images/logo.png"  height="50">
 
 This Project gives you an overall idea for Forecasting Mutual Funds.
 
