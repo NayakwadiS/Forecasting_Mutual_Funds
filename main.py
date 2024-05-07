@@ -13,6 +13,7 @@ def forecasting_mutual_fund(df, details):
     pred_linear, rmse_linear = linear(df)
     pred_autoReg, rmse_auto = AutoR(df)
     pred_arima, rmse_arima = arima(df)
+    # pred_arima, rmse_arima = arima_new(df)
     pred_LSTM, rmse_lstm = lstm(df)
 
     data = [
