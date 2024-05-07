@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-from statsmodels.graphics.tsaplots import plot_pacf
+from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
 from statsmodels.tsa.ar_model import AutoReg, AR
 # from statsmodels.tsa.arima_model import ARIMA
 from statsmodels.tsa.arima.model import ARIMA
