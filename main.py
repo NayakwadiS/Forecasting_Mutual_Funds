@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
 from Algorithms import *
 from tabulate import tabulate
+
 
 scheme_code = input('Enter the MF Scheme code:- ')
 
@@ -13,6 +13,7 @@ def forecasting_mutual_fund(df, details):
     pred_linear, rmse_linear = linear(df)
     pred_autoReg, rmse_auto = AutoR(df)
     pred_arima, rmse_arima = arima(df)
+    pred_expo, rmse_expo = exponential(df)
     # pred_arima, rmse_arima = arima_new(df)
     pred_LSTM, rmse_lstm = lstm(df)
 
@@ -23,6 +24,8 @@ def forecasting_mutual_fund(df, details):
             ,pred_autoReg[4],min(pred_autoReg),max(pred_autoReg)],
         ['ARIMA', pred_arima[0], pred_arima[1], pred_arima[2], pred_arima[3], pred_arima[4],
          min(pred_arima), max(pred_arima)],
+        ['Exponential', pred_expo[0], pred_expo[1], pred_expo[2], pred_expo[3], pred_expo[4],
+         min(pred_expo), max(pred_expo)],
         ['LSTM', pred_LSTM[0], pred_LSTM[1],pred_LSTM[2],pred_LSTM[3],pred_LSTM[4]
             ,min(pred_LSTM),max(pred_LSTM)]
     ]
@@ -37,6 +40,7 @@ def forecasting_mutual_fund(df, details):
     # plt.plot(np.append(Y, pred_linear), color='green', label="Linear")
     # plt.plot(np.append(Y, pred_autoReg), color='blue', label="Auto Regression")
     # plt.plot(np.append(Y,pred_arima), color='red',label='ARIMA')
+    # plt.plot(np.append(Y,pred_expo), color='yellow',label='Exponential')
     # plt.plot(np.append(Y, pred_LSTM), color='orange', label='LSTM')
     plt.xlabel('Days [last 100 + 30 forecasted]')
     plt.ylabel('NAV')
@@ -49,6 +53,7 @@ def forecasting_mutual_fund(df, details):
         'Linear': np.append(Y, pred_linear),
         'Auto Regression': np.append(Y, pred_autoReg),
         'ARIMA': np.append(Y, pred_arima),
+        'Exponential': np.append(Y, pred_expo),
         'LSTM': np.append(Y, pred_LSTM),
     })
     sns.lineplot(data=data_preproc)
