@@ -27,3 +27,5 @@ from Algorithms.mf_Linear import linear
 from Algorithms.mf_AutoRegression import AutoR
 from Algorithms.mf_LSTM import lstm
 from Algorithms.mf_ARIMA import arima
+from Algorithms.mf_ARIMA import arima_new
+from Algorithms.mf_ExponentialSmoothing import exponential
