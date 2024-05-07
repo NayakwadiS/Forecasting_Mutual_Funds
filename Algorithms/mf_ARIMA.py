@@ -47,3 +47,52 @@ def arima(df):
     # plt.plot(forecasting, color='red')        # 30 days forecasting
     # plt.show()
     return forecasting, rmse
+
+
+def arima_new(df):
+    df.index = df['date']
+    df['rolling_av'] = df['nav'].rolling(10).mean()
+    # df[['nav', 'rolling_av']].plot()
+
+    def plot_acf_pacf(timeseries):
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 7))
+        plot_acf(timeseries, ax=ax1, lags=100)
+        plot_pacf(timeseries, ax=ax2, lags=100)
+        # plt.show()
+
+    # Plotting ACF and PACF of the closing value time series,
+    # https://www.geeksforgeeks.org/understanding-the-moving-average-ma-in-time-series-data/
+    # plot_acf_pacf(df['nav'])
+
+    # creating the model
+    MA_model = ARIMA(endog=df['nav'], order=(0, 0, 55))
+
+    # fitting data to the model
+    results = MA_model.fit()
+    # values = arimaorder(results)
+    # summary of the model
+    print(results.summary())
+
+    # prediction data
+    start_date = df.iloc[-10].date
+    end_date = df.iloc[-1].date
+    # start_date = date.today().strftime('%Y-%m-%d')
+    # end_date = (date.today() + timedelta(days=days)).strftime('%Y-%m-%d')
+    df['prediction'] = results.predict(start=start_date, end=end_date)
+    rmse = math.sqrt(mean_squared_error(df['nav'][-10:], df['prediction'][-10:]))
+
+    # printing last 10 values of the prediction with original and rolling avg value
+    print(df[['nav', 'prediction', 'rolling_av']].tail(10))
+
+    # Forecast future values
+    # Forecast future closing prices
+    forecast_steps = 30  # Forecasting for the next 30 days
+    forecast_index = pd.date_range(start=df['nav'].index[-1], periods=forecast_steps + 1, freq='D')[
+                     1:]  # Generate datetime index for forecast
+    forecast = results.forecast(steps=forecast_steps)
+
+    # plotting the end results
+    # df[['nav', 'rolling_av', 'prediction']].plot()
+    # plt.plot(forecast_index, forecast, color='red', label='Forecast')
+
+    return forecast.tolist(), rmse
