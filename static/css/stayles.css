@@ -16,7 +16,7 @@ body {
 /* ===== Header Styles ===== */
 .header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 10px 0;
+  padding: 6px 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -37,13 +37,16 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
-  padding: 6px 10px;
+  padding: 4px 8px;
+  line-height: 1.2;
+  font-size: 14px;
   border-radius: 5px;
 }
 
 .header a.logo {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
+  line-height: 1.1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -54,14 +57,14 @@ body {
 
 .header-right {
   display: flex;
-  gap: 10px;
+  gap: 6px;
 }
 
 @media screen and (max-width: 600px) {
   .header > div {
     flex-direction: column;
     text-align: center;
-    gap: 15px;
+    gap: 8px;
   }
   .header-right {
     flex-direction: column;
