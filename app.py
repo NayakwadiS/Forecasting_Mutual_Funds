@@ -16,6 +16,16 @@ plot.use('Agg')
 m = Mftool()
 
 
+def _apply_plot_style():
+    # Matplotlib 3.8+ renamed seaborn styles to seaborn-v0_8-*
+    preferred = ['seaborn-v0_8-notebook', 'seaborn-notebook', 'ggplot']
+    available = set(plt.style.available)
+    for style_name in preferred:
+        if style_name in available:
+            plt.style.use(style_name)
+            return
+
+
 @getData.data_frame
 def main(df, details):
     df_new = df['nav'].iloc[-100:].astype(float)
@@ -29,7 +39,7 @@ def main(df, details):
 def get_plot(Y, pred):
     img = BytesIO()
     plt.figure(figsize=(12, 5))
-    plt.style.use('seaborn-notebook')
+    _apply_plot_style()
     plt.plot(np.append(Y, pred), color='blue', label="Prediction")
     plt.xlabel('Next 30 Days')
     plt.ylabel('NAV')
@@ -42,7 +52,7 @@ def get_plot(Y, pred):
 def get_trend(Y, pred, type):
     img = BytesIO()
     plt.figure(figsize=(12, 5))
-    plt.style.use('seaborn-notebook')
+    _apply_plot_style()
     plt.xlabel('Last 100 days + 30 Forecasting')
     plt.ylabel('NAV')
     plt.plot(df_30.values, color='black', label='Trend')
