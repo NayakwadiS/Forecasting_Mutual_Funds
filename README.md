@@ -4,9 +4,11 @@
 
 A simple project to forecast mutual fund NAV using multiple time-series algorithms.
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.2%2B-orange?logo=tensorflow&logoColor=white)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 ![License](https://img.shields.io/pypi/l/selenium-wire.svg)
+[![GitHub stars](https://img.shields.io/github/stars/NayakwadiS/NSE-Neuron?style=social)](https://github.com/NayakwadiS/NSE-Neuron/stargazers)
 
 ## UI (Recommended)
 
