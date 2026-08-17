@@ -11,7 +11,7 @@ from statsmodels.tsa.ar_model import AutoReg, AR
 # from statsmodels.tsa.arima_model import ARIMA
 from statsmodels.tsa.arima.model import ARIMA
 from pandas.plotting import autocorrelation_plot,lag_plot
-from tensorflow.keras.models import Sequential
+from keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
