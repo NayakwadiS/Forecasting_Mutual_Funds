@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from werkzeug.exceptions import HTTPException
-from io import BytesIO
-import base64
 from Algorithms import *
-import matplotlib.pyplot as plt
 import matplotlib as plot
 import warnings
 import json
@@ -16,52 +13,52 @@ plot.use('Agg')
 m = Mftool()
 
 
-def _apply_plot_style():
-    # Matplotlib 3.8+ renamed seaborn styles to seaborn-v0_8-*
-    preferred = ['seaborn-v0_8-notebook', 'seaborn-notebook', 'ggplot']
-    available = set(plt.style.available)
-    for style_name in preferred:
-        if style_name in available:
-            plt.style.use(style_name)
-            return
+def _normalize_predictions(pred):
+    flat = []
+    arr = np.array(pred, dtype=float).reshape(-1)
+    for value in arr:
+        flat.append(float(value))
+    return flat
+
+
+def _build_chart_payload(df, pred, algo_name):
+    history_df = df.tail(100).copy()
+    history_df['Date'] = pd.to_datetime(history_df['Date'], errors='coerce')
+    history_df['nav'] = pd.to_numeric(history_df['nav'], errors='coerce')
+    history_df = history_df.dropna(subset=['Date', 'nav'])
+
+    history_nav = history_df['nav'].astype(float).tolist()
+    history_labels = history_df['Date'].dt.strftime('%Y-%m-%d').tolist()
+
+    pred_values = _normalize_predictions(pred)
+    if len(pred_values) > 30:
+        pred_values = pred_values[:30]
+
+    last_date = history_df['Date'].iloc[-1] if len(history_df) else pd.Timestamp.today()
+    future_labels = [
+        (last_date + pd.Timedelta(days=i)).strftime('%Y-%m-%d')
+        for i in range(1, len(pred_values) + 1)
+    ]
+
+    labels = history_labels + future_labels
+    actual_series = history_nav + [None] * len(pred_values)
+    forecast_series = [None] * len(history_nav) + pred_values
+
+    return {
+        'algorithm': algo_name,
+        'labels': labels,
+        'actual': actual_series,
+        'forecast': forecast_series,
+        'history_count': len(history_nav),
+        'forecast_count': len(pred_values)
+    }
 
 
 @getData.data_frame
 def main(df, details):
-    df_new = df['nav'].iloc[-100:].astype(float)
-    Y = [np.nan for i in range(len(df_new))]
     global detail
-    global df_30
-    detail, df_30 = details, df_new
-    return Y, df
-
-
-def get_plot(Y, pred):
-    img = BytesIO()
-    plt.figure(figsize=(12, 5))
-    _apply_plot_style()
-    plt.plot(np.append(Y, pred), color='blue', label="Prediction")
-    plt.xlabel('Next 30 Days')
-    plt.ylabel('NAV')
-    plt.legend()
-    plt.savefig(img, format='png')
-    plt.close()
-    return base64.b64encode(img.getvalue()).decode('utf8')
-
-
-def get_trend(Y, pred, type):
-    img = BytesIO()
-    plt.figure(figsize=(12, 5))
-    _apply_plot_style()
-    plt.xlabel('Last 100 days + 30 Forecasting')
-    plt.ylabel('NAV')
-    plt.plot(df_30.values, color='black', label='Trend')
-    plt.plot(np.append(Y, pred), color='blue', label=type)
-    plt.title(type + " Forecasting for " + detail['scheme_name'])
-    plt.legend()
-    plt.savefig(img, format='png')
-    plt.close()
-    return base64.b64encode(img.getvalue()).decode('utf8')
+    detail = details
+    return df
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -70,7 +67,7 @@ def index():
         req = request.data
         req = json.loads(req.decode('utf8').replace("'", '"'))
         # if m.is_valid_code(req['scheme']):
-        Y, df = main(req['scheme'])
+        df = main(req['scheme'])
 
         def switch(x):
             return {'Linear': linear, 'Auto Regression': AutoR,
@@ -78,11 +75,10 @@ def index():
         try:
             call = switch(req['type'])
             pred, asd = call(df)
-            plot = get_trend(Y, pred, req['type'])
-            trend = get_plot(Y, pred)
-            return jsonify({'trend': trend, 'plot': plot})
+            chart_data = _build_chart_payload(df, pred, req['type'])
+            return jsonify({'chart_data': chart_data, 'details': detail, 'rmse': float(asd)})
         except Exception as e:
-                raise 500
+            return jsonify({'error': 'Internal forecasting error'}), 500
     #     raise 404
     else:
         return render_template('plot.html')
@@ -95,5 +91,4 @@ def internal_error(error):
         code = error.code
     return '',code
 
-
-app.run(port=5000, debug=False)
+app.run(port=5000, debug=True)
