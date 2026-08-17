@@ -46,7 +46,7 @@ def forecasting_mutual_fund(df, details):
     plt.ylabel('NAV')
     plt.title("Forecasting for " + details['scheme_name'])
     plt.legend()
-    s = df_30.append(pd.Series([np.nan for i in range(30)]))
+    s = pd.concat([df_30, pd.Series([np.nan for i in range(30)])], ignore_index=True)
     sns.set(style="ticks")
     data_preproc = pd.DataFrame({
         'Trends': s.values,
